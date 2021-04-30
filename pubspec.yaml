@@ -1,0 +1,193 @@
+name: YOURDRS_FlutterAPP
+description: A new Flutter project.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.0
+
+  # Date Formatter
+  intl: any
+
+  # Shared Preference
+  shared_preferences: ^0.5.12+4
+
+  # bloc
+  bloc: ^6.1.1
+  flutter_bloc: ^6.1.1
+
+  # path
+  path: any
+  path_provider: any
+
+  # For Pin Verification
+  pinput: ^1.0.0
+
+  # local auth
+  local_auth: ^0.6.3+4
+
+  # rflutter alert
+  rflutter_alert: ^1.0.2
+
+  # Image Picker for opening camera and gallery
+  image_picker: any
+
+  # Audio Players
+  audioplayer: any
+
+  # percent indicator
+  percent_indicator: any
+
+  # toggle Switch
+  toggle_switch: ^0.1.8
+
+  # file Picker
+  file_picker: ^1.12.0
+
+  # sqflite
+  sqflite: ^1.3.2+3
+
+  # flutter audio recorder
+  flutter_audio_recorder: ^0.5.5
+
+  # to show to message while recording the audio
+  fluttertoast: ^7.1.8
+
+  # audio wave
+  audio_wave: ^0.0.3
+
+  # connectivity to check if internet is available or not
+  connectivity: any
+
+  # Date Picker
+  date_picker_timeline: ^1.2.1
+
+  # Date range Picker
+  syncfusion_flutter_datepicker: any
+
+  # https
+  http: any
+
+  # equatable
+  equatable: ^1.2.5
+
+  # Network client
+  dio: ^3.0.10
+
+  # Network logging
+  pretty_dio_logger: ^1.1.0
+
+  # for grouping of Scheduled List
+  grouped_list: ^3.7.1
+
+  pdftron_flutter:
+    path: pdftron
+
+  #pagination
+  pagination_view: any
+  
+  webview_flutter: ^1.0.5
+  
+  # infinite Scroll View related Package
+  infinite_scroll_pagination: ^2.3.0
+  permission_handler: '3.0.1'
+
+dev_dependencies:
+  # Flutter app icon
+  flutter_launcher_icons: ^0.7.0
+
+  # Flutter list animation
+  flutter_staggered_animations:
+
+  flutter_test:
+    sdk: flutter
+
+  # Dependency injection
+  basic_utils: ^1.4.0
+  #date picker
+  datetime_picker_formfield:
+
+  page_transition:
+  cached_network_image: ^2.2.0+1
+
+# App icons
+flutter_icons:
+  ios: true
+  android: true
+  image_path_ios: "assets/launcher/icon.png"
+  image_path_android: "assets/launcher/icon.png"
+  adaptive_icon_background: "assets/launcher/background.png"
+
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    #appoiintment Json File
+  - assets/json/
+  - assets/images/
+  - assets/images/default_user_img.png
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  
+  fonts:
+    - family: NeueAlteGrotesk-Regular
+      fonts:
+        - asset: assets/fonts/NeueAlteGrotesk-Regular.ttf
+    - family: NeueAlteGrotesk-SemiBold
+      fonts:
+        - asset: assets/fonts/NeueAlteGrotesk-SemiBold.ttf
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages

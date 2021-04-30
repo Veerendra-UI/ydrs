@@ -1,0 +1,18 @@
+[
+  {
+    "dictationtypeid": "1",
+    "dictationtype": "NBR",
+    "appointmentType": "Surgery"
+  },
+  {
+    "dictationtypeid": "2",
+    "dictationtype": "OPR",
+    "appointmentType": "Surgery"
+  },
+
+  {
+    "dictationtypeid": "3",
+    "dictationtype": "MR",
+    "appointmentType": ""
+  }
+]
