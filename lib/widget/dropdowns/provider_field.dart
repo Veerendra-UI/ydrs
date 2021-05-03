@@ -1,10 +1,12 @@
 import 'package:YOURDRS_FlutterAPP/common/app_colors.dart';
 import 'package:YOURDRS_FlutterAPP/common/app_strings.dart';
 import 'package:YOURDRS_FlutterAPP/common/app_text.dart';
+import 'package:YOURDRS_FlutterAPP/cubit/manual_dictation_cubit/provider_cubit.dart';
 import 'package:YOURDRS_FlutterAPP/network/models/manual_dictations/provider_model.dart';
 import 'package:YOURDRS_FlutterAPP/network/services/schedules/appointment_service.dart';
 import 'package:YOURDRS_FlutterAPP/widget/dropdowns/searchable_dropdown.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ExternalProviderDropDown extends StatefulWidget {
   final String PracticeLocationId;
@@ -34,6 +36,7 @@ class _ExternalProviderDropDownState extends State<ExternalProviderDropDown>
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
+    BlocProvider.of<ProviderCubit>(context).getAllRecordsProvider();
     // print(
     //     'didChangeDependencies PracticeLocationId ${widget.PracticeLocationId}');
     // ExternalProvider externalProvider = await apiServices.getExternalProvider();
@@ -57,58 +60,74 @@ class _ExternalProviderDropDownState extends State<ExternalProviderDropDown>
       )
     ]);
   }
-
   @override
   Widget build(BuildContext context) {
-    if (locationId == null ||
-        (widget.PracticeLocationId != null &&
-            locationId != widget.PracticeLocationId)) {
-      locationId = widget.PracticeLocationId;
-      apiServices.getExternalProvider(locationId).then((value) {
-        if (value != null) {
-          data = value.providerList;
-          setState(() {});
-        }
-      });
-    }
-    // print('build PracticeLocationId ${widget.PracticeLocationId}');
+    return BlocListener<ProviderCubit,ProviderCubitState>(listener: (context,state){
+      if(state.errorMsg!=null)
+      {
+      print(state.errorMsg);
+      }
+      if(state.provider!=null)
+      {
+      data=state.provider;
+      }
+    },
+    child: BlocBuilder<ProviderCubit,ProviderCubitState>(builder: (context,state){
+      if (locationId == null ||
+          (widget.PracticeLocationId != null &&
+              locationId != widget.PracticeLocationId)) {
+        locationId = widget.PracticeLocationId;
+        apiServices.getExternalProvider(locationId).then((value) {
+          if (value != null) {
+            data = value.providerList;
+            setState(() {});
+          }
+        });
+      }
+      // print('build PracticeLocationId ${widget.PracticeLocationId}');
 
-    return Container(
-      //height: 100,
-      width: MediaQuery.of(context).size.width * 0.95,
+      return Container(
+        //height: 100,
+        width: MediaQuery.of(context).size.width * 0.95,
 
-      child: SearchableDropdown.single(
-      
-        underline: Padding(padding: EdgeInsets.all(1)),
-        displayClearIcon: false,
-        hint: Text(AppStrings.selectpractice_text,style: TextStyle(fontFamily: AppFonts.regular,fontSize: 14),),
-        items: data.map((item) {
-          return DropdownMenuItem<ProviderList>(
-              child: Text(
-                item.displayname ?? "",
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontFamily: AppFonts.regular,fontSize: 14),
-              ),
-              value: item);
-        }).toList(),
-        isExpanded: true,
-        value: providerList,
-        isCaseSensitiveSearch: true,
-        searchHint: new Text('Select ', style: new TextStyle(fontSize: 14,fontFamily: AppFonts.regular,fontWeight: FontWeight.bold)),
-        onChanged: (value) {
-          setState(() {
-            _currentSelectedValue = value;
-            widget.onTapOfProvider(value);
-          });
-        },
-      ),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: CustomizedColors.accentColor,
+        child: SearchableDropdown.single(
+
+          underline: Padding(padding: EdgeInsets.all(1)),
+          displayClearIcon: false,
+          hint: Text(AppStrings.selectpractice_text,style: TextStyle(fontFamily: AppFonts.regular,fontSize: 14),),
+          items: data.map((item) {
+            return DropdownMenuItem<ProviderList>(
+                child: Text(
+                  item.displayname ?? "",
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontFamily: AppFonts.regular,fontSize: 14),
+                ),
+                value: item);
+          }).toList(),
+          isExpanded: true,
+          value: providerList,
+          isCaseSensitiveSearch: true,
+          searchHint: new Text('Select ', style: new TextStyle(fontSize: 14,fontFamily: AppFonts.regular,fontWeight: FontWeight.bold)),
+          onChanged: (value) {
+            setState(() {
+              _currentSelectedValue = value;
+              widget.onTapOfProvider(value);
+            });
+          },
         ),
-        borderRadius: BorderRadius.circular(6),
-      ),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: CustomizedColors.accentColor,
+          ),
+          borderRadius: BorderRadius.circular(6),
+        ),
+      );
+    }),
     );
+
+
+
+
   }
 
   @override

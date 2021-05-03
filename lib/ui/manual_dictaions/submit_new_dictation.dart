@@ -7,7 +7,9 @@ import 'package:YOURDRS_FlutterAPP/common/app_strings.dart';
 import 'package:YOURDRS_FlutterAPP/common/app_text.dart';
 import 'package:YOURDRS_FlutterAPP/cubit/appointment_type_cubit.dart';
 import 'package:YOURDRS_FlutterAPP/cubit/document_type_cubit.dart';
+import 'package:YOURDRS_FlutterAPP/cubit/manual_dictation_cubit/location_cubit.dart';
 import 'package:YOURDRS_FlutterAPP/cubit/manual_dictation_cubit/practice_cubit.dart';
+import 'package:YOURDRS_FlutterAPP/cubit/manual_dictation_cubit/provider_cubit.dart';
 import 'package:YOURDRS_FlutterAPP/network/models/manual_dictations/external_dictation_attacment_model.dart';
 import 'package:YOURDRS_FlutterAPP/network/models/manual_dictations/practice.dart';
 import 'package:YOURDRS_FlutterAPP/network/models/manual_dictations/appointment_type.dart';
@@ -221,15 +223,30 @@ class _SubmitNewDictationState extends State<SubmitNewDictation>
                   ),
                   SizedBox(height: 15),
 
-//--------------Location drop down
-                  Locations(
-                    onTapOfLocation: (LocationList value) async {
+// --------------Location drop down
+//                   Locations(
+//                     onTapOfLocation: (LocationList value) async {
+//                       setState(() {
+//                         _selectedLocationId = int.parse('${value?.id ?? null}');
+//                       });
+//                       _selectedLocationName = value.name ?? null;
+//                     },
+//                     PracticeIdList: _selectedPracticeId.toString(),
+//                   ),
+
+                  BlocProvider(
+                    create: (context)=>LocationCubit() ,
+                    child: Locations(onTapOfLocation: (newValue) async{
                       setState(() {
-                        _selectedLocationId = int.parse('${value?.id ?? null}');
+                        if(newValue != null)
+                        {
+                          _selectedLocationId = (newValue as LocationList).id;
+                        }
                       });
-                      _selectedLocationName = value.name ?? null;
+                     _selectedLocationName=(newValue as LocationList).name;
                     },
-                    PracticeIdList: _selectedPracticeId.toString(),
+                      PracticeIdList: _selectedPracticeId.toString(),
+                    ),
                   ),
 
                   SizedBox(height: 15),
@@ -246,13 +263,26 @@ class _SubmitNewDictationState extends State<SubmitNewDictation>
                   SizedBox(height: 15),
 
 //-------------Provider drop down
-                  ExternalProviderDropDown(
-                      onTapOfProvider: (ProviderList value) async {
-                        _selectedProvider =
-                            int.parse('${value?.providerId ?? null}');
-                        _selectedProviderName = value.displayname ?? null;
-                      },
-                      PracticeLocationId: _selectedLocationId.toString()),
+//                   ExternalProviderDropDown(
+//                       onTapOfProvider: (ProviderList value) async {
+//                         _selectedProvider =
+//                             int.parse('${value?.providerId ?? null}');
+//                         _selectedProviderName = value.displayname ?? null;
+//                       },
+//                       PracticeLocationId: _selectedLocationId.toString()
+//                   ),
+                  BlocProvider(
+                    create: (context)=>ProviderCubit() ,
+                    child: ExternalProviderDropDown(onTapOfProvider: (newValue) async{
+                        if(newValue != null)
+                        {
+                          _selectedProvider = (newValue as ProviderList).providerId;
+                          _selectedProviderName=(newValue as ProviderList).displayname;
+                        }
+                    },
+                      PracticeLocationId: _selectedLocationId.toString(),
+                    ),
+                  ),
                   SizedBox(height: 15),
 //-------------------label text first name
                   Padding(

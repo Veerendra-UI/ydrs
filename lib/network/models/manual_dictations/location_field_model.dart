@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 class ExternalLocation {
   Header header;
   List<LocationList> locationList;
@@ -49,7 +51,7 @@ class Header {
   }
 }
 
-class LocationList {
+class LocationList extends Equatable {
   Header header;
   int id;
   String name;
@@ -176,4 +178,8 @@ class LocationList {
   String toString() {
     return 'PracticeList{name: $name,id: $id';
   }
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [this.name,this.id];
 }

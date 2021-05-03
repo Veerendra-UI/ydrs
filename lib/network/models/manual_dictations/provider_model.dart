@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 class ExternalProvider {
   Header header;
   List<ProviderList> providerList;
@@ -49,7 +51,7 @@ class Header {
   }
 }
 
-class ProviderList {
+class ProviderList extends Equatable{
   int providerId;
   String firstName;
   String lastName;
@@ -80,4 +82,13 @@ class ProviderList {
     data['suffix'] = this.suffix;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'ProviderList{providerId: $providerId, displayname: $displayname}';
+  }
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [this.displayname,this.providerId];
 }
